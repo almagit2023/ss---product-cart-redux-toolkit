@@ -50,11 +50,10 @@ body {
 }
 
 .productStyle {
-  width: 33%;
-  margin: 1rem;
-  border: 1px solid gray;
+  border: 1px solid;
   border-radius: 0.5rem;
   padding: 1rem;
+
 }
 
 .addCartButton {
@@ -75,8 +74,14 @@ body {
 
 
 .productBox {
-  display: flex;
-  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  padding: 16px;
+  width: 90%;
+  align-items: center;
+  justify-items: center;
+  margin: 0 auto;
 }
 
 .notificationBadge {
