@@ -3,37 +3,26 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addProduct } from '../reducers/reducers';
 import { handleSuccess } from '../util';
-import axios from 'axios';
+import { fetchDataFromAPI } from '../api/api';
 
 
 const Home = () => {
   const [product, setProduct] = useState([]);
   const dispatch = useDispatch();
 
-
-  const getData = async () => {
-    try {
-      const { data } = await axios.get('https://dummyjson.com/products');
-      const products = data.products;
-      console.log("Products:", products);
-      return products;
-    }
-
-    catch (error) {
-      console.error('Error fetching data:', error);
-      throw error;
-    }
-  };
-
   useEffect(() => {
     const fetchProducts = async () => {
-      const productsData = await getData();
-      setProduct(productsData); // Set the state here
+      try {
+        const result = await fetchDataFromAPI('https://dummyjson.com/products');
+        setProduct(result.products); // Update state with fetched products
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      }
     };
 
+    // fetching data...
     fetchProducts();
   }, []);
-
 
   const addToCart = (product) => {
     dispatch(addProduct(product));
